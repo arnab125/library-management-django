@@ -16,9 +16,7 @@
 
         <ul class="navbar-nav mr-auto">
             {% if user.is_authenticated %}
-             <li class="nav-item">
-            <a class="nav-link" href="/dashboard/logout">Logout</a>
-          </li><li class="nav-item">
+            <li class="nav-item">
             <a class="nav-link" href="/dashboard/view_books">All Books</a>
           </li>
             <li class="nav-item">
@@ -27,13 +25,19 @@
             <li class="nav-item">
             <a class="nav-link" href="/dashboard/view_wishlist">Wishlist</a>
             </li>
+            <li class="nav-item">
+            <a class="nav-link" href="/dashboard/extra_fines">Extra Fines</a>
+            </li>
+              <li class="nav-item">
+            <a class="nav-link btn btn-danger px-4 mx-4 font-weight-bold" href="/dashboard/logout">Logout</a>
+              </li>
 
             {% else %}
           <li class="nav-item active">
-            <a class="nav-link" href="/dashboard/register">Register <span class="sr-only">(current)</span></a>
+            <a class="nav-link btn btn-primary px-4 mx-4 font-weight-bold" href="/dashboard/register">Register <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/dashboard/login">Login</a>
+            <a class="nav-link btn btn-success px-4 mx-4 font-weight-bold" href="/dashboard/login">Login</a>
           </li>
             {% endif %}
         </ul>

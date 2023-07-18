@@ -23,7 +23,15 @@
             <p class="card-text mb-1">ISBN: {{ book.isbn }}</p>
             <p class="card-text mb-1">Genre: {{ book.genre }}</p>
             <p class="card-text mb-1">Available Copies: {{ book.number_of_copies_available }}</p>
-            <a href="#" class="btn btn-primary btn-sm">Borrow</a>
+            {% if book.isbn not in borrowed_books %}
+              {% if book.number_of_copies_available > 0 %}
+              <a href="/dashboard/borrow_book/{{ book.isbn }}" class="btn btn-primary btn-sm">Borrow Book</a>
+              {% else %}
+                <a href="#" class="btn btn-danger btn-sm disabled">Out of stock</a>
+              {% endif %}
+            {% else %}
+              <a href="/dashboard/return_book/{{ book.isbn }}" class="btn btn-danger btn-sm">Return Book</a>
+            {% endif %}
             {% if book.isbn not in wishlist %}
               <a href="/dashboard/add_to_wishlist/{{ book.isbn }}" class="btn btn-success btn-sm">Add to Wishlist</a>
             {% else %}

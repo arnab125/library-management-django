@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import landing, view_books, view_books_search, signup_view, login_view, logout_view, view_wishlist, add_to_wishlist, remove_from_wishlist
+from .views import landing, view_books, view_books_search, signup_view, login_view, logout_view, view_wishlist, add_to_wishlist, remove_from_wishlist, borrow_book, return_book, view_borrowed_books, extra_fines
 
 
 
@@ -14,4 +14,8 @@ urlpatterns = [
     path('add_to_wishlist/<str:isbn>/', add_to_wishlist, name='add_to_wishlist'),
     path('remove_from_wishlist/<str:isbn>/', remove_from_wishlist, name='remove_from_wishlist'),
     path('view_wishlist/', view_wishlist, name='view_wishlist'),
+    path('borrow_book/<str:isbn>/', borrow_book, name='borrow_book'),
+    path('return_book/<str:isbn>/', return_book, name='return_book'),
+    path('view_borrowed_books/', view_borrowed_books, name='view_borrowed_books'),
+    path('extra_fines/', extra_fines, name='extra_fines')
 ]
