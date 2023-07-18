@@ -57,7 +57,11 @@ def view_books_search(request, search_term):
         books = Book.objects.filter(title__icontains=search_term)
     else:
         books = Book.objects.all()
-    return render(request, 'viewbooks.html', context={'books': books})
+    wishlist = Wishlist.objects.filter(user=request.user)
+    borrowed_books = BorrowedBook.objects.filter(user=request.user)
+    borrowed_books_isbn_list = [book.book.isbn for book in borrowed_books]
+    isbn_list = [book.book.isbn for book in wishlist]
+    return render(request, 'viewbooks.html', context={'books': books, 'wishlist': isbn_list, 'borrowed_books': borrowed_books_isbn_list})
 
 
 def add_to_wishlist(request, isbn):
@@ -130,5 +134,4 @@ def get_notifications(request):
     for book in borrowed_books:
         if book.due_date -datetime.date.today() <= datetime.timedelta(days=30):
             due_date_list.append({'title': book.book.title, 'due_date': book.due_date})
-            print(due_date_list)
     return render(request, 'notifications.html', context={'due_date_list': due_date_list})

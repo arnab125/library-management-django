@@ -20,7 +20,7 @@
   <tbody>
     {% for book in due_date_list %}
     <tr>
-      <th scope="row">{{ forloop.counter }}. {{ book.title }} should be returned by {{ book.due_date }}</th>
+      <th scope="row">{{ forloop.counter }}. Title: {{ book.title }} should be returned by {{ book.due_date }}</th>
     </tr>
     {% endfor %}
   </tbody>
