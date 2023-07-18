@@ -89,6 +89,7 @@ def borrow_book(request, isbn):
     due_date = borrowed_date + datetime.timedelta(days=7)
     borrowed_book = BorrowedBook.objects.create(user=user, book=book, borrowed_date=borrowed_date, due_date=due_date)
     book.number_of_copies_available -= 1
+    book.save()
     return redirect('view_books')
 
 def return_book(request, isbn):
@@ -97,6 +98,7 @@ def return_book(request, isbn):
     borrowed_book = BorrowedBook.objects.filter(user=user, book=book)
     borrowed_book.delete()
     book.number_of_copies_available += 1
+    book.save()
     return redirect('view_borrowed_books')
 
 def view_borrowed_books(request):
