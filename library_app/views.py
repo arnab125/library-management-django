@@ -86,7 +86,7 @@ def borrow_book(request, isbn):
     user = request.user
     book = Book.objects.get(isbn=isbn)
     borrowed_date = datetime.date.today()
-    due_date = borrowed_date + datetime.timedelta(days=30)
+    due_date = borrowed_date + datetime.timedelta(days=7)
     borrowed_book = BorrowedBook.objects.create(user=user, book=book, borrowed_date=borrowed_date, due_date=due_date)
     return redirect('view_books')
 
@@ -118,3 +118,13 @@ def extra_fines(request):
             number_of_books += 1
             total_fine += fine
     return render(request, 'extra_fines.html', context={'total_fine': total_fine, 'number_of_books': number_of_books, 'details': book_details_list})
+
+def get_notifications(request):
+    user = request.user
+    due_date_list = []
+    borrowed_books = BorrowedBook.objects.filter(user=user)
+    for book in borrowed_books:
+        if book.due_date -datetime.date.today() <= datetime.timedelta(days=30):
+            due_date_list.append({'title': book.book.title, 'due_date': book.due_date})
+            print(due_date_list)
+    return render(request, 'notifications.html', context={'due_date_list': due_date_list})
